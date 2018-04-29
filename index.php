@@ -23,36 +23,46 @@
     </head>
         <div class="sidebar">
             <?php files(); ?>
+            <ul class="options">
+                <li onclick="makeBold()"><b>Bold</b> <div id="bold"></div></li>
+                <li onclick="makeItalic()"><i>Italic</i> <div id="italic"></div></li>
+
+            </ul>
         </div>
         <div class="center">
             <div class="header">
                 <ul>
+                    <!--
+                    These links does nothing for now
+                    !-->
                     <a href="javascript:test()"><li>Skalowalne (vh - vw)</li></a>
                     <a href="javascript:test()"><li>Stałe (px)</li></a>
                     <a href="javascript:test()"><li>Inne</li></a>
+                    <div class="clear"></div>
                 </ul>
-            <div class="clear"></div>
-            <span class="currentFont">Obecnie używana czcionka: <span id="crFt">NONE</span></span>
-            <span class="browser">Browser: <span id="browser"></span></span>
+                <span class="information">Obecnie używana czcionka: <span id="crFt">NONE</span></span>
+                <span class="information"> Browser: <span id="browser"></span></span>
+                <div class="clear"></div>
             </div>
-            <table>
-                <tr>
-                    <td class="ft" id="content">
-                    <?php
-                        printText();
-                    ?>
-                    </td>
-                </tr>
-            </table>
-            <table>
-                <tr>
-                    <td>
+            <div class="contentBox">
+                <div id="ifSVG"></div>
+                <table>
+                    <tr>
+                        <td class="ft" id="content">
                         <?php
-                            test();
+                            printText();
                         ?>
-                    </td>
-                </tr>
-            </table>
-            <?php lines(50);?>
+                        </td>
+                    </tr>
+                </table>
+                <?php lines(50);?>
+            </div>
+            <div class="footer">
+                <h2>Compatible with:</h2>
+                <p>IE9+ [EOT WOFF TTF/OTF]</p>
+                <p>Google Chrome [TTF WOFF WOFF2]</p>
+                <p>Mozilla Firefox</p>
+                <p>Safari</p>
+            </div>
         </div>
 </html>

@@ -1,6 +1,257 @@
+body
+{
+    color: white;
+    background-color: black;
+    margin: 0;
+}
+
+div
+{
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.sidebar
+{
+    float: left;
+    background-color: black;
+}
+
+.sidebar ul
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: black;
+}
+
+.sidebar li
+{
+    padding: 5px;
+}
+
+.sidebar li:hover
+{
+    background-color: white;
+    color: black;
+}
+
+.sidebar a
+{
+    text-decoration: none;
+    font-style: italic;
+}
+
+.sidebar a:link, .sidebar a:visited
+{
+   color: white; 
+}
+
+.sidebar a:hover
+{
+    color: black;
+}
+
+.sidebar a:active
+{
+    color: brown;
+}
+
+.files
+{
+    padding: 8px 20px;
+    background-color: #3a768f;
+    display: block;
+    text-align: right;
+    font-weight: bold;
+}
+
+.options
+{
+    background-color: #3a768f!important;
+}
+.options li
+{
+    font-style: normal!important;
+}
+
+#bold
+{
+    content: '';
+    height: 20px;
+    width: 20px;
+    float: right;
+    background-color: red;
+    border: 2px solid white;
+}
+
+.bold
+{
+    background-color: green!important;
+}
+
+.Bold
+{
+    font-weight: bold;
+}
+
+#italic
+{
+    content: '';
+    height: 20px;
+    width: 20px;
+    float: right;
+    background-color: red;
+    border: 2px solid white;   
+}
+
+.italic
+{
+   background-color: green!important; 
+}
+
+.Italic
+{
+  font-style: italic;  
+}
+
+.center
+{
+    width: 75%;
+    float: left;
+}
+
+.header
+{
+    border-bottom: 1px dotted white;
+}
+
+.header ul
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #3a768f;
+}
+
+.header ul li
+{
+    float: left;
+    padding: 5px 10px;
+}
+
+.header li:hover
+{
+    background-color: white;
+    color: #3a768f;
+}
+
+.header a:link, .header a:visited
+{
+    color: white;
+}
+
+.header a:hover
+{
+    color: orange;
+}
+
+.header a:active
+{
+    color: black;
+}
+
+.information
+{
+    padding: 2px 10px;
+    float: left;
+}
+
 #crFt, #browser
 {
     color: #3a768f;
+}
+
+.contentBox
+{
+    color: black;
+    background-color: white;
+    padding: 10px;
+}
+
+.contentBox .textBig
+{
+    font-size: 40px;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    text-align: justify;
+}
+
+.contentBox .textModerate
+{
+    float: left;
+    width: 50%;
+    font-size: 20px;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+.contentBox .textSmall
+{
+    float: left;
+    width: 25%;
+    font-size: 10px;
+    padding: 0 10px;
+    text-align: justify;
+    margin-bottom: 20px;
+}
+
+.contentBox .textModerate p, .contentBox .textBig p, .contentBox .textSmall p
+{
+    margin: 0;
+    padding: 5px 0;
+    border-bottom: 2px solid #CCC;   
+}
+
+.tableLine
+{
+    width:1100px;
+    /* TO ADD IS DYNAMIC WIDTH WITH A BUTTON ON/OFF FOR WIDTH OF THAT TABLE */
+    overflow: hidden;
+}
+
+.tableNumber
+{
+    background-color: #CCC;
+    padding: 5px;
+}
+
+.tableRow
+{
+    padding-left: 5px;
+}
+
+#ifSVG
+{
+    color: #D94100;
+    text-align: center;
+}
+
+#ifSVG a
+{
+    text-decoration: none;
+}
+
+#ifSVG a:link, #ifSVG a:visited
+{
+    color: #C2B43C;
+}
+
+.tblLine
+{
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 .clear
@@ -10,26 +261,26 @@
     content: '';
 }
 
-table
+.footer
 {
-    
+    background-color: #3a768f;
 }
 
-.browser
+.footer p
 {
-    padding: 0px 10px;
-    display: block;
+    padding: 5px 20px;
+    margin: 0;
 }
 
-a
+.footer h2
 {
-    color: white;
+    background-color: white;
+    color: #3a768f;
+    width: 200px;
+    margin: 0;
+    padding: 5px;
 }
 
-body
-{
-    color: white;
-    background-color: black;
-}
+
 
 

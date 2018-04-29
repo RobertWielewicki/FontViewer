@@ -3,6 +3,9 @@ window.onload = function(){
 };
 
 var path = "fonts/";
+var wasSVGUsed = false;
+var bold = false;
+var italic = false;
 
 function font(font)
 {
@@ -20,8 +23,12 @@ function font(font)
        script = script + 'src: url(\'' + path + font + '\') format(\'woff\');}';
    } else if(ext === 'svg')
    {
-       script = script + 'src: url(\'' + path + font + '#svgFontName\') format(\'svg\');}';
-
+       script = script + 'src: url(\'' + path + font + '\') format(\'svg\');}';
+       if(wasSVGUsed === false)
+       {
+           wasSVGUsed = true;
+           document.getElementById("ifSVG").innerHTML = 'If you can see empty spaces in SVG font it basically means that font doesn\'t support specified language <a href="javascript:hideSVG()"><sup>CLOSE</sup></a>';
+       }
    } else if(ext === 'woff2')
    {
        script = script + 'src: url(\'' + path + font + '\') format(\'woff2\');}';
@@ -135,4 +142,42 @@ function browserDisplay()
 function test()
 {
     
+}
+
+function hideSVG()
+{
+    document.getElementById("ifSVG").innerHTML = "";
+}
+
+function makeBold()
+{
+    if(bold === false)
+    {
+        document.getElementById("bold").classList.add("bold");
+        document.getElementById("content").classList.add("Bold");
+        bold = true;
+    }
+    else
+    {
+       document.getElementById("bold").classList.remove("bold");
+       document.getElementById("content").classList.remove("Bold");
+       bold = false;
+    }
+
+}
+
+function makeItalic()
+{
+    if(italic === false)
+    {
+        document.getElementById("italic").classList.add("italic");
+        document.getElementById("content").classList.add("Italic");
+        italic = true;
+    }
+    else
+    {
+       document.getElementById("italic").classList.remove("italic");
+       document.getElementById("content").classList.remove("Italic");
+       italic = false;
+    }   
 }
