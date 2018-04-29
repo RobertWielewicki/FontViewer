@@ -1,0 +1,35 @@
+#crFt, #browser
+{
+    color: #3a768f;
+}
+
+.clear
+{
+    clear: both;
+    display: block;
+    content: '';
+}
+
+table
+{
+    
+}
+
+.browser
+{
+    padding: 0px 10px;
+    display: block;
+}
+
+a
+{
+    color: white;
+}
+
+body
+{
+    color: white;
+    background-color: black;
+}
+
+
