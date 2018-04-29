@@ -7,12 +7,11 @@
     /* Alphabets to display */
     $alphabet[] = 'AaĄąBbCcĆćDdEeĘęFfGgHhIiJjKkLlŁłMmNnŃńOoÓóPpRrSsŚśTtUuWwYyZzŹźŻż'; // Polish
     $alphabet[] = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz'; // English
-
+    $alphabet[] = 'АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя';
     // add Russian
 
     /* CSS classes */
-    //$divSize = array('textSmall', 'textModerate', 'textBig');
-    $divSize = array('textBig');
+    $divSize = array('textBig', 'textModerate', 'textSmall');
 function files()
 {
     global $path;
@@ -80,32 +79,70 @@ function getExtension($string)
 function printText()
 {
     global $alphabet;
-    global $divSize;
-    for($i = 0; $i < count($divSize); $i++)
-    {
-        //echo "I: $i<br/>";
-        for($j = 0; $j < count($alphabet); $j++)
-        {
-        //echo "J: $j<br/>";
-            for($k = 0; $k < strlen($alphabet[$j]); $k++)
-            {
-                $tmp = '';
-                
-                if(isset($alphabet[$j][$k+1]))
-                {
-                    $tmp = $alphabet[$j][$k].$alphabet[$j][$k+1];
-                    //echo $tmp. ' ';
-                    echo htmlentities($tmp).' ';
-                }
-                
-                //echo $alphabet[$j][$k].' ';
-            }
-            echo "<br/>";
-        }
-    }
-    echo htmlentities($alphabet[0][2]);
+    printFragment($alphabet[0]);
+    printFragment($alphabet[2]);
+    printLineFragments($alphabet[0]);
+}
 
-   // echo $alphabet[0][2].$alphabet[0][3];
+function printFragment($alphabet)
+{
+    global $divSize;
+    echo "<div class=\"$divSize[0]\"><p>";
+    printAlphabet($alphabet);
+    echo '</p></div><div class="clear"></div>';    
+    for($i = 0; $i < 2; $i++)
+    {
+        echo "<div class=\"$divSize[1]\"><p>";
+        printAlphabet($alphabet);
+        echo '</p></div>';         
+    }
+    echo '<div class="clear"></div>';
+    for($i = 0; $i < 4; $i++)
+    {
+        echo "<div class=\"$divSize[2]\"><p>";
+        printAlphabet($alphabet);
+        echo '</p></div>'; 
+    }
+    echo '<div class="clear"></div>';
+}
+
+function printAlphabet($alphabet)
+{
+    for($k = 0; $k < mb_strlen($alphabet, 'UTF-8'); $k++)
+    {
+        echo mb_substr($alphabet, $k, 1, 'UTF-8')." ";
+    }
+}
+
+function printLineFragments($alphabet)
+{
+    $pre = '<div class="tableLine"><table class="tblLine"><tbody><tr><td class="tableNumber">';
+    $after = '</tr></tbody></table></div>';
+
+    for($i = 10; $i < 15; $i ++)
+    {
+        echo "$pre";
+        echo "$i</td><td class=\"tableRow\" style=\"font-size:$i"."px\">$alphabet</td>";
+        echo "$after";
+    }
+    for($i = 16; $i <= 24; $i+=2)
+    {
+        echo "$pre";
+        echo "$i</td><td class=\"tableRow\" style=\"font-size:$i"."px\">$alphabet</td>";
+        echo "$after";
+    }
+    for($i = 25; $i < 60; $i+=5)
+    {
+        echo "$pre";
+        echo "$i</td><td class=\"tableRow\" style=\"font-size:$i"."px\">$alphabet</td>";
+        echo "$after";
+    }
+    for($i = 60; $i <= 90; $i+=10)
+    {
+        echo "$pre";
+        echo "$i</td><td class=\"tableRow\" style=\"font-size:$i"."px\">$alphabet</td>";
+        echo "$after";
+    }
 }
 
 function lines($number)
@@ -116,8 +153,3 @@ function lines($number)
     }
 }
 
-function test()
-{
-    global $alphabet;
-    echo "$alphabet[0]";
-}
