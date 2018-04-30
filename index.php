@@ -2,9 +2,10 @@
 <html lang="pl">
     <head>
         ﻿<?php
-        $ver = "1.0.0 Copyright Robert Wielewicki 2018";
+        $ver = "1.0.1 Copyright Robert Wielewicki 2018";
         /*
          * REV 1.0.0 25.04.2018r
+		 * REV 1.0.1 30.04.2018r
          */
         require_once 'resources/functions.php';
         ?>
