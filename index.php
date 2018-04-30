@@ -26,7 +26,8 @@
             <ul class="options">
                 <li onclick="makeBold()"><b>Bold</b> <div id="bold"></div></li>
                 <li onclick="makeItalic()"><i>Italic</i> <div id="italic"></div></li>
-
+                <li><span style="color:black;">C</span><span style="color:#CCC;">ol</span><span style="color:red;">ou</span><span style="color:brown;">r</span> <input type="text" onblur="changeColour()" id="colour" /></li>
+                <li onclick="dynWidth()">Dynamic width <div id="dynWidth"></div></li>
             </ul>
         </div>
         <div class="center">

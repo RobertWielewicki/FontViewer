@@ -2,16 +2,15 @@
     /* Path that contains font files to check*/
     $path = "fonts/";
     $fontExtensions = array("eot", "odttf", "otf", "ttf", "svg", "woff", "woff2");
-    //$fontExtensionsAdditional = array("abf", "acfm", "afm", "amfm", "bdf", "cha", "chr", "compositefont", "dfont", "etx", "euf", "f3f", "fea", "ffil", "fnt", "fnt", "fon", "fot", "gdr", "gf", "glif", "gxf", "lwfn", "mcf", "mf", "mxf", "nftr", "pcf", "");
-    
+
     /* Alphabets to display */
     $alphabet[] = 'AaĄąBbCcĆćDdEeĘęFfGgHhIiJjKkLlŁłMmNnŃńOoÓóPpRrSsŚśTtUuWwYyZzŹźŻż'; // Polish
     $alphabet[] = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz'; // English
     $alphabet[] = 'АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя';
-    // add Russian
 
-    /* CSS classes */
     $divSize = array('textBig', 'textModerate', 'textSmall');
+    $symbols = '&.,?!@()#$%*+-=:;1234567890';
+    
 function files()
 {
     global $path;
@@ -37,10 +36,6 @@ function files()
     }
     for($i = 0; $i < $fontCounter; $i++)
     {
-
-        //echo '<a href=&apos;'.'javascript:font("'.$fontsFile[$i].'"'.")".'"><li>'.$fontsFile[$i].'</li></a>';
-        //echo '<li id="'.$fontsFile[$i].'" onclick=font()>'.$fontsFile[$i].'</li>';
-        // kurwa
         echo '<a href=\'javascript:font("'.$fontsFile[$i].'")\'><li>'.$fontsFile[$i].'</li></a>';
     }
 
@@ -79,8 +74,13 @@ function getExtension($string)
 function printText()
 {
     global $alphabet;
+    global $symbols;
+    
+    echo '<div id="fontUsed">Select one of the fonts</div><div class="clear"></div>';
+    
     printFragment($alphabet[0]);
     printFragment($alphabet[2]);
+    printFragment($symbols);
     printLineFragments($alphabet[0]);
 }
 
@@ -116,9 +116,10 @@ function printAlphabet($alphabet)
 
 function printLineFragments($alphabet)
 {
+    global $symbols;
     $pre = '<div class="tableLine"><table class="tblLine"><tbody><tr><td class="tableNumber">';
     $after = '</tr></tbody></table></div>';
-
+    echo '<div id="tableLine">';
     for($i = 10; $i < 15; $i ++)
     {
         echo "$pre";
@@ -143,6 +144,7 @@ function printLineFragments($alphabet)
         echo "$i</td><td class=\"tableRow\" style=\"font-size:$i"."px\">$alphabet</td>";
         echo "$after";
     }
+    echo '</div>';
 }
 
 function lines($number)

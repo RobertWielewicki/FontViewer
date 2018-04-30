@@ -1,11 +1,15 @@
 window.onload = function(){
    browserDisplay(); 
+   tablewidthInitial();
+   dynWidth();
 };
 
 var path = "fonts/";
 var wasSVGUsed = false;
 var bold = false;
 var italic = false;
+var dynamicWidth = false;
+var width = document.getElementById("tableLine").style.width;
 
 function font(font)
 {
@@ -46,8 +50,9 @@ function font(font)
        script = '<style>' + script + '</style>';
        document.getElementById("styleIE").innerHTML = script;
    }
-   console.log(script);
    document.getElementById("crFt").innerHTML = font; /* JUST INFORMS WHICH FONT IS BEING USED AFTER CLICKING ONE */
+   document.getElementById("fontUsed").innerHTML = font; /* JUST INFORMS WHICH FONT IS BEING USED AFTER CLICKING ONE */
+
 }
 
 function cont()
@@ -180,4 +185,47 @@ function makeItalic()
        document.getElementById("content").classList.remove("Italic");
        italic = false;
     }   
+}
+
+function changeColour()
+{
+    document.getElementById("content").style.color = document.getElementById("colour").value;
+    if(document.getElementById("content").style.color !== document.getElementById("colour").value && (document.getElementById("colour").value[0] !== '#'))
+    {
+        console.log("Probably wrong color...Try again maybe?");
+    }
+}
+
+function dynWidth()
+{
+    if(dynamicWidth === false)
+    {
+       dynamicWidth = true;
+       document.getElementById("dynWidth").classList.add("dynWidth");
+       dynWidthTimer();
+    }
+    else
+    {
+       document.getElementById("dynWidth").classList.remove("dynWidth");
+       dynamicWidth = false;  
+    }
+}
+
+function dynWidthTimer()
+{
+    if(dynamicWidth === true)
+    {
+        var widthTmp = document.getElementById("tableLine").style.width;
+        if (widthTmp !== width)
+        {
+            width = (window.innerWidth*3/4) - 40;
+            document.getElementById("tableLine").style.width = width+"px";
+        }
+        setTimeout(dynWidthTimer, 100); 
+    }
+}
+
+function tablewidthInitial()
+{
+   document.getElementById("tableLine").style.width = (window.innerWidth*3/4) - 40+"px"; 
 }
