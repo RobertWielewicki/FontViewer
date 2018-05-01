@@ -2,10 +2,11 @@
 <html lang="pl">
     <head>
         ﻿<?php
-        $ver = "1.0.1 Copyright Robert Wielewicki 2018";
+        $ver = "1.0.2 Copyright Robert Wielewicki 2018";
         /*
          * REV 1.0.0 25.04.2018r
-		 * REV 1.0.1 30.04.2018r
+         * REV 1.0.1 30.04.2018r
+         * REV 1.0.2 01.05.2018r
          */
         require_once 'resources/functions.php';
         ?>
@@ -57,14 +58,13 @@
                         </td>
                     </tr>
                 </table>
-                <?php lines(50);?>
             </div>
             <div class="footer">
                 <h2>Compatible with:</h2>
-                <p>IE9+ [EOT WOFF TTF/OTF]</p>
-                <p>Google Chrome [TTF WOFF WOFF2]</p>
-                <p>Mozilla Firefox</p>
-                <p>Safari</p>
+                <p>IE9+ [EOT WOFF TTF/OTF] <sub><i>Having some issues with IE9, but nothing impossible to solve. Please wait for updates.</i></sub></p>
+                <p>Google Chrome [TTF/OTF WOFF WOFF2]</p>
+                <p>Mozilla Firefox [TTF/OTF WOFF WOFF2]</p>
+                <p>Safari <sub><i>Tested on Windows version from 2012, it has to work on current ones</i></sub></p>
             </div>
         </div>
 </html>
