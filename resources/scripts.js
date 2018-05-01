@@ -4,17 +4,25 @@ window.onload = function(){
    dynWidth();
 };
 
+/* Compatibility list for browsers */
+var Chrome = ['ttf', 'woff', 'woff2', 'otf'];
+var Safari = ['ttf', 'svg', 'woff', 'woff2'];
+var Firefox = ['ttf', 'woff', 'woff2', 'otf'];
+
+
+var browser;
 var path = "fonts/";
 var wasSVGUsed = false;
 var bold = false;
 var italic = false;
 var dynamicWidth = false;
-var width = document.getElementById("tableLine").style.width;
+var width;
 
 function font(font)
 {
    //alert(getWithoutExtension(font));
-   var script = '@font-face {font-family: \''+getWithoutExtension(font)+'\';';
+   var fontName = getWithoutExtension(font);
+   var script = '@font-face {font-family: \''+fontName+'\';';
    var ext = getExtension(font);
    if(ext === 'eot')
    {
@@ -32,6 +40,7 @@ function font(font)
        {
            wasSVGUsed = true;
            document.getElementById("ifSVG").innerHTML = 'If you can see empty spaces in SVG font it basically means that font doesn\'t support specified language <a href="javascript:hideSVG()"><sup>CLOSE</sup></a>';
+           setTimeout("hideSVG()", 5000);
        }
    } else if(ext === 'woff2')
    {
@@ -40,9 +49,9 @@ function font(font)
    {
        script = script + 'src: url(\'' + path + font + '\') format(\'opentype\');}';
    }
-   script = script + '.ft{font-family:\'' + getWithoutExtension(font) + '\'!important;}';
+   script = script + '.ft{font-family:\'' + fontName + '\'!important;}';
 
-   if(browser() !== 'Internet Explorer')
+   if(getBrowser() !== 'Internet Explorer')
    {
        document.getElementById("scriptjs").innerHTML = script;
    } else
@@ -50,8 +59,17 @@ function font(font)
        script = '<style>' + script + '</style>';
        document.getElementById("styleIE").innerHTML = script;
    }
-   document.getElementById("crFt").innerHTML = font; /* JUST INFORMS WHICH FONT IS BEING USED AFTER CLICKING ONE */
-   document.getElementById("fontUsed").innerHTML = font; /* JUST INFORMS WHICH FONT IS BEING USED AFTER CLICKING ONE */
+   
+   if(compatibleFont(font) === true)
+   {
+        document.getElementById("crFt").innerHTML = font;
+        document.getElementById("fontUsed").innerHTML = font;
+   }
+   else
+   {
+       document.getElementById("crFt").innerHTML = fontName+".<span style=\"color:red;\">"+ext+"</span>";
+       document.getElementById("fontUsed").innerHTML = fontName+".<span style=\"color:red;\">"+ext+"</span>";
+   }
 
 }
 
@@ -97,9 +115,8 @@ function getWithoutExtension(file)
     return '';
 }
 
-function browser()
+function getBrowser()
 {
-    var browser;
     // Opera 8.0+
     var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
     // Firefox 1.0+
@@ -141,7 +158,7 @@ function browser()
 
 function browserDisplay()
 {
-    document.getElementById("browser").innerHTML = browser();
+    document.getElementById("browser").innerHTML = getBrowser();
 }
 
 function test()
@@ -227,5 +244,34 @@ function dynWidthTimer()
 
 function tablewidthInitial()
 {
-   document.getElementById("tableLine").style.width = (window.innerWidth*3/4) - 40+"px"; 
+   width = document.getElementById("tableLine").clientWidth;
+   //document.getElementById("tableLine").style.width = (window.innerWidth*3/4) - 40+"px"; 
+   document.getElementById("tableLine").clientWidth = (document.documentElement.clientHeight*3/4) - 40+"px"; //For IE compatibility...
+}
+
+function compatibleFont(font)
+{
+    var ext = getExtension(font);
+    var extensions;
+    var flag = false;
+    if(browser === 'Google Chrome' || browser === 'Opera' || browser === 'Blink Engine')
+    {
+        extensions = Chrome.slice();
+    }
+    if(browser === 'Mozilla Firefox')
+    {
+        extensions = Firefox.slice();
+    }
+    if(browser === 'Safari')
+    {
+        extensions = Safari.slice();
+    }
+    for(i = 0; i < extensions.length; i++)
+    {
+       if(ext === extensions[i])
+       {
+           flag = true;
+       }
+    }
+    return flag;
 }
