@@ -206,11 +206,50 @@ function makeItalic()
 
 function changeColour()
 {
-    document.getElementById("content").style.color = document.getElementById("colour").value;
-    if(document.getElementById("content").style.color !== document.getElementById("colour").value && (document.getElementById("colour").value[0] !== '#'))
+
+    /* Supported colors right now are all of text ones like 'red' etc. and HEX ones like #999333 and #333 */
+    var flag = false; // Flag saying if the color is correct or not.
+    var colourFlag = false;
+    var color = document.getElementById("colour").value.toLowerCase();
+    if(color === '')
     {
-        console.log("Probably wrong color...Try again maybe?");
+        document.getElementById("content").style.color = "black";  
     }
+    var CSS_COLOR_NAMES = ["AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige","Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown","BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral","CornflowerBlue","Cornsilk","Crimson","Cyan","DarkBlue","DarkCyan","DarkGoldenRod","DarkGray","DarkGrey","DarkGreen","DarkKhaki","DarkMagenta","DarkOliveGreen","Darkorange","DarkOrchid","DarkRed","DarkSalmon","DarkSeaGreen","DarkSlateBlue","DarkSlateGray","DarkSlateGrey","DarkTurquoise","DarkViolet","DeepPink","DeepSkyBlue","DimGray","DimGrey","DodgerBlue","FireBrick","FloralWhite","ForestGreen","Fuchsia","Gainsboro","GhostWhite","Gold","GoldenRod","Gray","Grey","Green","GreenYellow","HoneyDew","HotPink","IndianRed","Indigo","Ivory","Khaki","Lavender","LavenderBlush","LawnGreen","LemonChiffon","LightBlue","LightCoral","LightCyan","LightGoldenRodYellow","LightGray","LightGrey","LightGreen","LightPink","LightSalmon","LightSeaGreen","LightSkyBlue","LightSlateGray","LightSlateGrey","LightSteelBlue","LightYellow","Lime","LimeGreen","Linen","Magenta","Maroon","MediumAquaMarine","MediumBlue","MediumOrchid","MediumPurple","MediumSeaGreen","MediumSlateBlue","MediumSpringGreen","MediumTurquoise","MediumVioletRed","MidnightBlue","MintCream","MistyRose","Moccasin","NavajoWhite","Navy","OldLace","Olive","OliveDrab","Orange","OrangeRed","Orchid","PaleGoldenRod","PaleGreen","PaleTurquoise","PaleVioletRed","PapayaWhip","PeachPuff","Peru","Pink","Plum","PowderBlue","Purple","Red","RosyBrown","RoyalBlue","SaddleBrown","Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue","SlateBlue","SlateGray","SlateGrey","Snow","SpringGreen","SteelBlue","Tan","Teal","Thistle","Tomato","Turquoise","Violet","Wheat","White","WhiteSmoke","Yellow","YellowGreen"];
+    // Huge thanks for bobspace on GitHub for this array!
+    for(i = 0; i < CSS_COLOR_NAMES.length; i++)
+    {
+        if(color === CSS_COLOR_NAMES[i].toLowerCase())
+        {
+            flag = true;
+            colourFlag = true;
+        }
+    }
+    if(flag !== true)
+    {
+        if(color[0] === '#')
+        {
+            if(color.length === 7 || color.length === 4)
+            {
+                if(isHexNumber(color) === true)
+                {
+                    document.getElementById("content").style.color = color;
+                    colourFlag = true;
+                }
+            }            
+        }
+
+    }
+    else
+    {
+        document.getElementById("content").style.color = color;
+    }
+    if(colourFlag === false)
+    {
+        console.log("Wrong color..Maybe typo?");
+        document.getElementById("colour").value = '';
+    }
+    
 }
 
 function dynWidth()
@@ -274,4 +313,33 @@ function compatibleFont(font)
        }
     }
     return flag;
+}
+
+function isHexNumber(number)
+{
+    if(number[0] === '#')
+    {
+        number = number.substring(1);
+    }
+    number = number.toLowerCase();
+    console.log(number);
+    /* Don't yell at me, this function treats hex number as string, because it is means to be used for CSS color hex values from form */
+    var set = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+    var flag = false;
+    for(i = 0; i < number.length; i++)
+    {
+        flag = false;
+        for(j = 0; j < set.length; j++)
+        {
+            if(number[i] === set[j])
+            {
+                flag = true;
+            }
+        }
+        if (flag === false)
+        {
+            return false;
+        }
+    }
+    return true;
 }
