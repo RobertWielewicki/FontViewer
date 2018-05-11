@@ -8,15 +8,18 @@ window.onload = function(){
 var Chrome = ['ttf', 'woff', 'woff2', 'otf'];
 var Safari = ['ttf', 'svg', 'woff', 'woff2'];
 var Firefox = ['ttf', 'woff', 'woff2', 'otf'];
+var IE9 = ['ttf', 'eot', 'woff', 'otf'];
 
 
 var browser;
 var path = "fonts/";
 var wasSVGUsed = false;
+var wasOTFUsed = false;
 var bold = false;
 var italic = false;
 var dynamicWidth = false;
 var width;
+var IEversion;
 
 function font(font)
 {
@@ -47,6 +50,16 @@ function font(font)
        script = script + 'src: url(\'' + path + font + '\') format(\'woff2\');}';
    } else if(ext === 'otf')
    {
+       if(browser === 'Internet Explorer')
+       {
+           if(wasOTFUsed === false)
+           {
+                wasOTFUsed = true;
+                document.getElementById("ifOTFinIE").innerHTML = 'If you can\'t see font preview, you should enable otf support first! <a href="javascript:hideOTF()"><sup>CLOSE</sup></a>';
+                setTimeout("hideOTF()", 5000);               
+           }
+
+       }
        script = script + 'src: url(\'' + path + font + '\') format(\'opentype\');}';
    }
    script = script + '.ft{font-family:\'' + fontName + '\'!important;}';
@@ -71,11 +84,6 @@ function font(font)
        document.getElementById("fontUsed").innerHTML = fontName+".<span style=\"color:red;\">"+ext+"</span>";
    }
 
-}
-
-function cont()
-{
-    
 }
 
 function getExtension(file)
@@ -140,6 +148,22 @@ function getBrowser()
     }else if(isIE === true)
     {
         browser = "Internet Explorer";
+        var IEversion = (function(){
+
+    var undef,
+        v = 3,
+        div = document.createElement('div'),
+        all = div.getElementsByTagName('i');
+
+    while (
+        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+        all[0]
+    );
+
+    return v > 4 ? v : undef;
+
+}());
+        showUnsupported(IEversion);
     }else if(isEdge === true)
     {
         browser = "Microsoft Edge";
@@ -168,22 +192,27 @@ function test()
 
 function hideSVG()
 {
-    document.getElementById("ifSVG").innerHTML = "";
+    document.getElementById("ifSVG").innerHTML = '';
+}
+
+function hideOTF()
+{
+   document.getElementById("ifOTFinIE").innerHTML = '';
 }
 
 function makeBold()
 {
     if(bold === false)
     {
-        document.getElementById("bold").classList.add("bold");
-        document.getElementById("content").classList.add("Bold");
+        document.getElementById("bold").className += "bold";
+        document.getElementById("content").className += " Bold";
         bold = true;
     }
     else
     {
-       document.getElementById("bold").classList.remove("bold");
-       document.getElementById("content").classList.remove("Bold");
-       bold = false;
+        document.getElementById("bold").className = document.getElementById("bold").className.replace( /(?:^|\s)bold(?!\S)/g , '' );
+        document.getElementById("content").className = document.getElementById("content").className.replace( /(?:^|\s)Bold(?!\S)/g , '' );
+        bold = false;
     }
 
 }
@@ -192,15 +221,15 @@ function makeItalic()
 {
     if(italic === false)
     {
-        document.getElementById("italic").classList.add("italic");
-        document.getElementById("content").classList.add("Italic");
+        document.getElementById("italic").className += "italic";
+        document.getElementById("content").className += " Italic";
         italic = true;
     }
     else
     {
-       document.getElementById("italic").classList.remove("italic");
-       document.getElementById("content").classList.remove("Italic");
-       italic = false;
+        document.getElementById("italic").className = document.getElementById("italic").className.replace( /(?:^|\s)italic(?!\S)/g , '' );
+        document.getElementById("content").className = document.getElementById("content").className.replace( /(?:^|\s)Italic(?!\S)/g , '' );
+        italic = false;
     }   
 }
 
@@ -246,8 +275,9 @@ function changeColour()
     }
     if(colourFlag === false)
     {
-        console.log("Wrong color..Maybe typo?");
+        console.log("Wrong color... Typo?");
         document.getElementById("colour").value = '';
+        document.getElementById("content").style.color = "black";
     }
     
 }
@@ -257,12 +287,12 @@ function dynWidth()
     if(dynamicWidth === false)
     {
        dynamicWidth = true;
-       document.getElementById("dynWidth").classList.add("dynWidth");
+       document.getElementById("dynWidth").className += "dynWidth";
        dynWidthTimer();
     }
     else
     {
-       document.getElementById("dynWidth").classList.remove("dynWidth");
+       document.getElementById("dynWidth").className = document.getElementById("dynWidth").className.replace( /(?:^|\s)dynWidth(?!\S)/g , '' );
        dynamicWidth = false;  
     }
 }
@@ -276,6 +306,7 @@ function dynWidthTimer()
         {
             width = (window.innerWidth*3/4) - 40;
             document.getElementById("tableLine").style.width = width+"px";
+            document.getElementById("fontUsed").style.width = width+"px";
         }
         setTimeout(dynWidthTimer, 100); 
     }
@@ -284,8 +315,7 @@ function dynWidthTimer()
 function tablewidthInitial()
 {
    width = document.getElementById("tableLine").clientWidth;
-   //document.getElementById("tableLine").style.width = (window.innerWidth*3/4) - 40+"px"; 
-   document.getElementById("tableLine").clientWidth = (document.documentElement.clientHeight*3/4) - 40+"px"; //For IE compatibility...
+   document.getElementById("tableLine").clientWidth = (document.documentElement.clientWidth*3/4) - 40+'px'; //For IE compatibility...
 }
 
 function compatibleFont(font)
@@ -297,13 +327,22 @@ function compatibleFont(font)
     {
         extensions = Chrome.slice();
     }
-    if(browser === 'Mozilla Firefox')
+    else if(browser === 'Mozilla Firefox')
     {
         extensions = Firefox.slice();
     }
-    if(browser === 'Safari')
+    else if(browser === 'Safari')
     {
         extensions = Safari.slice();
+    }
+    else if(browser === 'Internet Explorer')
+    {
+        extensions = IE9.slice();
+    }
+    else
+    {
+        console.log("Returned true, but only for non-panic purpose. Unknown browser.");
+        return true;
     }
     for(i = 0; i < extensions.length; i++)
     {
@@ -322,11 +361,13 @@ function isHexNumber(number)
         number = number.substring(1);
     }
     number = number.toLowerCase();
-    console.log(number);
     /* Don't yell at me, this function treats hex number as string, because it is means to be used for CSS color hex values from form */
     var set = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
     var flag = false;
-    for(i = 0; i < number.length; i++)
+    number = number.split("");
+    var numberLength = number.length;
+    number = number.join("");
+    for(i = 0; i < numberLength; i++)
     {
         flag = false;
         for(j = 0; j < set.length; j++)
@@ -342,4 +383,19 @@ function isHexNumber(number)
         }
     }
     return true;
+}
+
+function showUnsupported(IEv)
+{
+
+    if(IEv <= 8)
+    {
+        
+        document.getElementById("unsupportedBrowser").className = "unsupported";
+    }
+}
+
+function colourClear()
+{
+    document.getElementById("colour").value = "";
 }
