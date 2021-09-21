@@ -13,6 +13,7 @@ This will recursively search for fonts in said directory, but FONTS.html will st
 __I suggest using Firefox for big fonts sets (like the one from Google https://github.com/google/fonts).__
 
 fonttester.sh outputs smaller blocks of text
+![fonttesterFull output](screen.png)
 
 # TODO
 - Add example text into variables for easier editing for other languages
