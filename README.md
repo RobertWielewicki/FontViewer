@@ -15,5 +15,5 @@ __I suggest using Firefox for big fonts sets (like the one from Google https://g
 fonttester.sh outputs smaller blocks of text
 
 # TODO
-- Add included text into variables for easier editing
+- Add example text into variables for easier editing for other languages
 - Merge scripts into one with 0,1,2 etc. flag in cli
