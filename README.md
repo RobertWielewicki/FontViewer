@@ -11,9 +11,11 @@ fonttesterFull.sh ~/fonts
 ```
 This will recursively search for fonts in said directory, but FONTS.html will still output in current directory. 
 __I suggest using Firefox for big fonts sets (like the one from Google https://github.com/google/fonts).__
-
-fonttester.sh outputs smaller blocks of text
+Example output from fonttesterFull.sh
 ![fonttesterFull output](screen.png)
+Example output from fonttester.sh
+![fonttesterFull output](screen2.png)
+fonttester.sh just outputs smaller blocks of text
 
 # TODO
 - Add example text into variables for easier editing for other languages
