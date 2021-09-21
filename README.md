@@ -1,7 +1,8 @@
 # FontViewer
 
-Usage:
 Prefferably add this script to your PATH.
+
+Usage:
 ```
 fonttesterFull.sh
 ```
