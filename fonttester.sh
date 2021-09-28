@@ -29,3 +29,5 @@ do
 	awk -v x="$NUM" -v l="$LINE" 'BEGIN { print "<h6 class=\"fontname\">" l "</h6><div><p>Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz Zażółć Gęślą Jaźń</p></div>"  }' >> FONTS.html
 done
 printf "</body></html>"  >> FONTS.html
+$BROWSER --version 2>/dev/null 2>&1
+[ $? -eq 0 ] && $BROWSER FONTS.html >dev/null 2>&1 &
