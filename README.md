@@ -22,7 +22,6 @@ Example output from fonttester.sh . 3
 
 Example output from fonttester.sh . 2
 ![fonttester output](screen2.png)
-fonttester.sh just outputs smaller blocks of text
 
 Second argument explanation
 
