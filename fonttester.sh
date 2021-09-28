@@ -2,6 +2,10 @@
 #Author: Robert Wielewicki
 #2021
 #License: GPL2
+
+bc -h >/dev/null 2>&1
+[ $? -eq 127 ] && echo '"bc" is required!' && exit 1
+
 FONTDIR=${1:-"."}
 [ ! -d "$FONTDIR" ] && echo "Directory \"$FONTDIR\" doesn't exist!" && exit 1
 
@@ -28,7 +32,8 @@ FONTSNUM=$( echo "$FONTS" | wc -l )
 [ "$FONTS" == '' ] && echo "No fonts found!" &&  exit
 printf '<!DOCTYPE html><head><meta charset="UTF-8"><style>'  > FONTS.html
 printf "body{max-width:1000px;background-color:#F0F7F4; margin-left:auto;margin-right:auto;padding:0 10px;}"  >> FONTS.html
-printf "h6 {margin: 20px 0 0 0;padding: 5px 0 0 15px;background-color:#32292f;color:#99e1d9;}"  >> FONTS.html
+printf "h6 {margin: 20px 0 0 0;padding: 5px 0 0 15px;background-color:#32292f;}"  >> FONTS.html
+printf "a, a:link, a:visited {color:#99e1d9;} a:hover{color:#d6f3ef;} a:active{color:#6b9d97;}"  >> FONTS.html
 printf "div {background-color:#32292F; color:#F0F7F4; padding: 15px;max-height:500px;overflow:clip;} div:nth-of-type(2n) {background-color:#99e1d9;color:black;}"  >> FONTS.html
 
 echo "$FONTS" | while read LINE
@@ -41,10 +46,9 @@ printf "</style><body>"  >> FONTS.html
 
 echo "$FONTS" | while read LINE
 do
-	awk -v font="$LINE" -v example="$EXAMPLE" 'BEGIN { print "<h6 class=\"fontname\">" font "</h6><div>" example "</div>" }' >> FONTS.html
+	awk -v font="$LINE" -v example="$EXAMPLE" 'BEGIN { print "<h6 class=\"fontname\"><a href=\"" font "\">" font "</a></h6><div>" example "</div>" }' >> FONTS.html
 done
 
 printf "</body></html>"  >> FONTS.html
 $BROWSER --version 2>/dev/null 2>&1
 [ $? -eq 0 ] && $BROWSER FONTS.html >/dev/null 2>&1 &
-
