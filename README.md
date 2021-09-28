@@ -8,23 +8,35 @@ Prefferably add this script to your PATH.
 
 Usage:
 ```
-fonttesterFull.sh
+fonttester.sh
 ```
 This will recursively search for every font file (.ttf .odt and .woff for now) and include them into ./FONTS.html
 ```
-fonttesterFull.sh ~/fonts
+fonttester.sh ~/fonts
 ```
 This will recursively search for fonts in said directory, but FONTS.html will still output in current directory. 
 __I suggest using Firefox for big fonts sets (like the one from Google https://github.com/google/fonts).__
 
-Example output from fonttesterFull.sh
-![fonttesterFull output](screen.png)
+Example output from fonttester.sh . 3
+![fonttester output](screen.png)
 
-Example output from fonttester.sh
-![fonttesterFull output](screen2.png)
+Example output from fonttester.sh . 2
+![fonttester output](screen2.png)
 fonttester.sh just outputs smaller blocks of text
 
+Second argument explanation
+
+- 0 English, Polish and Russian alphabet
+- 1 English alphabet in 5 sizes
+- 2 English alphabet in 1 size
+- 3 English lorem ipsum
+- 4 Polish alphabet in 5 sizes
+- 5 Polish alphabet in 1 size
+- 6 Polish lorem ipsum
+- 7 Russian alphabet in 5 sizes
+- 8 Russian alphabet in 1 size
+- 9 Russian lorem ipsum
+
 # TODO
-- Add example text into variables for easier editing for other languages
-- Merge scripts into one with 0,1,2 etc. flag in cli
 - Add macOS support
+- Add import header to be saved separately so FONTS.html can be generated to just contain example patterns and save time generating big fonts sets
