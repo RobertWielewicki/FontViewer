@@ -25,3 +25,4 @@ fonttester.sh just outputs smaller blocks of text
 # TODO
 - Add example text into variables for easier editing for other languages
 - Merge scripts into one with 0,1,2 etc. flag in cli
+- Add macOS support
