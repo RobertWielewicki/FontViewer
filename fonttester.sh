@@ -1,4 +1,7 @@
 #!/bin/sh
+#Author: Robert Wielewicki
+#2021
+#License: GPL2
 FONTDIR=${1:-"."}
 [ ! -d "$FONTDIR" ] && echo "Directory \"$FONTDIR\" doesn't exist!" && exit 1
 
