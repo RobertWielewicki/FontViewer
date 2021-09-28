@@ -1,7 +1,9 @@
 # FontViewer
 
 FontViewer is simple shell script that creates FONTS.html file with import syntax in css that allows you to view all fonts in directory (via recursive search, so no need to extract fonts first).
+
 Linux only. I suppose you can get it to work on mac, but I dont guarantee it yet. I have no access to even an old mac to test.
+
 Prefferably add this script to your PATH.
 
 Usage:
