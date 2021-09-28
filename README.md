@@ -1,4 +1,4 @@
-# FontViewer
+# FontViewer - GPL2
 
 FontViewer is simple shell script that creates FONTS.html file which imports fonts in CSS to preview them (via recursive search, so no need to extract fonts first).
 
